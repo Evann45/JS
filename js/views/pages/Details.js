@@ -1,19 +1,26 @@
 import Utils from "../../services/Utils.js";
-import ArticleProvider from "../../services/ArticleProvider.js";
+import CharacterProvider from "../../services/models.js";
 
-export default class ArticleShow {
+export default class CharacterDetails {
   async render() {
     let request = Utils.parseRequestURL();
-    let post = await ArticleProvider.getArticle(request.id);
+    let character = await CharacterProvider.getCharacter(request.id);
 
     return /*html*/ `
-            <section class="section">
-                <h1> Article index : ${post.index}</h1>
-                <p> Post Title : ${post.title} </p>
-                <p> Post Content : ${post.text} </p>
-            </section>
-            <p><a href="/">back to home</a></p>
-            <p><a href="#/articles">back to all articles</a></p>
-        `;
+      <section class="section">
+        <h1>${character.name}</h1>
+        <div>
+          <img src="${character.image}" alt="${character.name}" style="max-width: 300px;">
+        </div>
+        <div>
+          <p>Age: ${character.age}</p>
+          <p>Taille: ${character.size}</p>
+          <p>Prime: ${character.bounty}</p>
+          <p>Métier: ${character.job}</p>
+          <p>Statut: ${character.status}</p>
+          <p>Équipage: ${character.crew.name}</p>
+        </div>
+      </section>
+    `;
   }
 }

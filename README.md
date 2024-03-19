@@ -6,7 +6,7 @@ npx json-server data/data.json
 
 # commande pour lancer l'api et le mettre a jour
 
-npx json-server --watch data/data.json
+npx json-server --watch data/fr.json
 
 # Lien API
 
