@@ -4,13 +4,13 @@ import Details from "./views/pages/Details.js";
 import Error404 from "./views/pages/Error404.js";
 
 import Utils from "./services/Utils.js";
-import models from "./services/models.js";
 
 // List of supported routes. Any url other than these routes will throw a 404 error
 const routes = {
   "/": Home,
   "/personnages": Listing,
-  "/personnages/:id": Details,
+  "/personnages/:id": Listing,
+  "/personnage/:id": Details,
 };
 
 // Function to handle routing
