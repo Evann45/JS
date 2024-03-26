@@ -1,1 +1,1 @@
-export const ENDPOINT = "https://api.api-onepiece.com/v2/characters/fr";
+export const ENDPOINT = "http://localhost:3000/personnage";
