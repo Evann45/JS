@@ -1,6 +1,7 @@
 import Home from "./views/pages/Home.js";
 import Listing from "./views/pages/Listing.js";
 import Details from "./views/pages/Details.js";
+import Recherche from "./views/pages/Recherche.js";
 import Error404 from "./views/pages/Error404.js";
 
 import Utils from "./services/Utils.js";
@@ -11,6 +12,7 @@ const routes = {
   "/personnages": Listing,
   "/personnages/:id": Listing,
   "/personnage/:id": Details,
+  "/recherche/:id": Recherche,
 };
 
 // Function to handle routing

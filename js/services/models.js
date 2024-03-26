@@ -36,4 +36,26 @@ export default class models {
       console.log("Error getting character details", err);
     }
   };
+
+  static rechercheCharacter = async (name) => {
+    const options = {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    try {
+      const response = await fetch(`${ENDPOINT}`, options);
+      const json = await response.json();
+      console.log(json);
+      const characters = json.filter((character) => character.name.toLowerCase().includes(name.replaceAll('%20', ' ').toLowerCase()));
+      console.log(characters);
+      if (characters.length > 27) {
+        return characters.slice(0, 27);
+      }
+      return characters;
+    } catch (err) {
+      console.log("Error getting character details", err);
+    }
+  }
 }
