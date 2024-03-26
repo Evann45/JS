@@ -33,8 +33,8 @@ export default class CharacterDetails {
         <div>
           <p>Age: ${character.age}</p>
           <p>Taille: ${character.size}</p>
-          <p>Prime: ${character.bounty} <img src="Symbole_Berry.webp" alt="Berry"></p>
-          <p>Grade: ${character.job}</p>
+          <p>Prime: ${character.bounty}<img src="Symbole_Berry.webp" alt="Berry"></p>
+          <p>Rôle: ${character.job}</p>
           <p>Statut: ${character.status}</p>
         </div>
       </section>
@@ -65,7 +65,7 @@ const equipageDetails = (crew) => {
       <div>
         <p>Nom: ${crew.name} (${crew.roman_name})</p>
         <p>Nombre de membre: ${crew.number}</p>
-        <p>Prime totale: ${crew.total_prime} <img src="Symbole_Berry.webp" alt="Berry"></p>
+        <p>Prime totale: ${crew.total_prime}<img src="Symbole_Berry.webp" alt="Berry"></p>
         ${crew.is_yonko ? '<p>Est un équipage de Yonko (Empereur des mers)</p>' : ''}
         <p>Status: ${crew.status}</p>
       </div>
