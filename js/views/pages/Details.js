@@ -21,6 +21,16 @@ export default class CharacterDetails {
           <p>Équipage: ${character.crew.name}</p>
         </div>
       </section>
+      <button id="addFavoriteBtn">Ajouter aux favoris</button>
     `;
+  }
+
+  async afterRender() {
+    document
+      .getElementById("addFavoriteBtn")
+      .addEventListener("click", async () => {
+        let request = Utils.parseRequestURL();
+        await CharacterProvider.addCharacterToJson(request.id);
+      });
   }
 }

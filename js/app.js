@@ -2,6 +2,7 @@ import Home from "./views/pages/Home.js";
 import Listing from "./views/pages/Listing.js";
 import Details from "./views/pages/Details.js";
 import Error404 from "./views/pages/Error404.js";
+import Favoris from "./views/pages/Favoris.js";
 
 import Utils from "./services/Utils.js";
 import models from "./services/models.js";
@@ -11,6 +12,7 @@ const routes = {
   "/": Home,
   "/personnages": Listing,
   "/personnages/:id": Details,
+  "/favoris": Favoris,
 };
 
 // Function to handle routing
@@ -35,6 +37,9 @@ const handleRouting = async () => {
     const page = new PageComponent(); // Instantiate the page component
     const renderedContent = await page.render(); // Render the page content
     content.innerHTML = renderedContent; // Update the content with the rendered page content
+    if (typeof page.afterRender === "function") {
+      await page.afterRender();
+    }
   } catch (error) {
     console.error("Error rendering page: ", error);
     // Render an error page if rendering fails
