@@ -3,7 +3,7 @@ import CharacterProvider from "../../services/models.js";
 
 export default class Home {
   async render() {
-    let characters = await CharacterProvider.fetchCharacters(6); // Récupère les trois premiers personnages
+    let characters = await CharacterProvider.fetchCharacters(0, 6); // Récupère les trois premiers personnages
     let html = characters
       .map(
         (character) => /*html*/ `
