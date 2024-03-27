@@ -38,9 +38,19 @@ export default class CharacterDetails {
           <p>Statut: ${character.status}</p>
         </div>
       </section>
+      <button id="addFavoriteBtn">Ajouter aux favoris</button>
       ${detailFruit}
       ${detailCrew}
     `;
+  }
+
+  async afterRender() {
+    document
+      .getElementById("addFavoriteBtn")
+      .addEventListener("click", async () => {
+        let request = Utils.parseRequestURL();
+        await CharacterProvider.addCharacterToJson(request.id);
+      });
   }
 }
 
