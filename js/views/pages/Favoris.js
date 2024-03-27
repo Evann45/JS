@@ -17,7 +17,7 @@ export default class Favoris {
                   <p class="card-text">Prime: ${character.bounty}</p>
                   <div class="d-flex justify-content-between align-items-center">
                     <div class="btn-group">
-                      <a href="#/personnages/${character.id}" class="btn btn-sm btn-outline-secondary">+ Détail</a>
+                      <a href="#/personnage/${character.id}" class="btn btn-sm btn-outline-secondary">+ Détail</a>
                       <button class="btn btn-sm btn-outline-secondary remove-favorite-btn" data-id="${character.id}">- Retirer des favoris</button>
                     </div>
                   </div>

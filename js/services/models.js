@@ -11,9 +11,15 @@ export default class models {
     try {
       const response = await fetch(`${ENDPOINT}`, options);
       const json = await response.json();
-      if (from && to) { return json.slice(from, to); }
-      if (from) { return json.slice(from); }
-      if (to) { return json.slice(0, to); }
+      if (from && to) {
+        return json.slice(from, to);
+      }
+      if (from) {
+        return json.slice(from);
+      }
+      if (to) {
+        return json.slice(0, to);
+      }
       return json;
     } catch (err) {
       console.log("Error getting characters", err);
@@ -36,7 +42,7 @@ export default class models {
       console.log("Error getting character details", err);
     }
   };
-  
+
   // ajoute le personnage dans un fichier json a part avec un chemin spécifique
   static addCharacterToJson = async (id) => {
     try {
@@ -152,7 +158,11 @@ export default class models {
       const response = await fetch(`${ENDPOINT}`, options);
       const json = await response.json();
       console.log(json);
-      const characters = json.filter((character) => character.name.toLowerCase().includes(name.replaceAll('%20', ' ').toLowerCase()));
+      const characters = json.filter((character) =>
+        character.name
+          .toLowerCase()
+          .includes(name.replaceAll("%20", " ").toLowerCase())
+      );
       console.log(characters);
       if (characters.length > 27) {
         return characters.slice(0, 27);
@@ -161,5 +171,5 @@ export default class models {
     } catch (err) {
       console.log("Error getting character details", err);
     }
-  }
+  };
 }
