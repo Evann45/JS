@@ -3,21 +3,20 @@ import CharacterProvider from "../../services/models.js";
 
 export default class Home {
   async render() {
-    let characters = await CharacterProvider.fetchCharacters(3); // Récupère les trois premiers personnages
+    let characters = await CharacterProvider.fetchCharacters(0, 6); // Récupère les trois premiers personnages
     let html = characters
       .map(
         (character) => /*html*/ `
             <div class="col">
               <div class="card shadow-sm">
-                <img src="${character.image}" class="bd-placeholder-img card-img-top" width="100%" height="225" role="img" aria-label="Placeholder: Thumbnail" focusable="false">
                 <div class="card-body">
                   <h5 class="card-title">${character.name}</h5>
                   <p class="card-text">Age: ${character.age}</p>
                   <p class="card-text">Taille: ${character.size}</p>
-                  <p class="card-text">Prime: ${character.bounty}</p>
+                  <p class="card-text">Prime: ${character.bounty}<img src="Symbole_Berry.webp" alt="Berry"></p>
                   <div class="d-flex justify-content-between align-items-center">
                     <div class="btn-group">
-                      <a href="#/personnages/${character.id}" class="btn btn-sm btn-outline-secondary">+ Détail</a>
+                      <a href="#/personnage/${character.id}" class="btn btn-sm btn-outline-secondary">+ Détails</a>
                     </div>
                   </div>
                 </div>
