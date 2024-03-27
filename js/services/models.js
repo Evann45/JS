@@ -92,18 +92,34 @@ export default class models {
       // Charger les données actuelles du stockage local
       let jsonData = JSON.parse(localStorage.getItem("favoris") || "[]");
 
-      // Trouver l'index du personnage avec l'ID spécifié
-      const index = jsonData.findIndex((char) => char.id === id);
-      console.log("index", index);
+      let foundKey = null; // Initialisez la variable pour stocker la clé trouvée
+
+      // Parcourir les éléments du localStorage
+      for (let i = 0; i < jsonData.length; i++) {
+        // Vérifier si l'ID du personnage stocké correspond à celui recherché
+        console.log(
+          "jsonData[i].id",
+          jsonData[i].id,
+          "id rechercher",
+          id,
+          "index",
+          i
+        );
+        if (jsonData[i].id == id) {
+          console.log("Personnage trouvé dans les favoris:", jsonData[i]);
+          foundKey = i; // Stocker la clé correspondante dans la variable foundKey
+          break; // Sortir de la boucle une fois que le personnage est trouvé
+        }
+      }
 
       // Supprimer le personnage du tableau s'il est trouvé
-      if (index == -1) {
-        dataToRemove = jsonData.splice(index, 1);
+      try {
+        jsonData.splice(foundKey, 1); // Supprimer l'élément du tableau
         console.log("jsonData", jsonData);
 
         // Filtrer les données pour supprimer l'entrée spécifique
         jsonData = jsonData.filter(
-          (item) => JSON.stringify(item) !== JSON.stringify(dataToRemove)
+          (item) => JSON.stringify(item) !== JSON.stringify(jsonData)
         );
 
         // Réécrire les données mises à jour dans le stockage local
@@ -111,7 +127,7 @@ export default class models {
 
         console.log("Personnage retiré avec succès des favoris.");
         return true;
-      } else {
+      } catch (error) {
         console.log("Personnage introuvable dans les favoris.");
         return false;
       }
