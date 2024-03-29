@@ -15,13 +15,13 @@ export default class CharacterDetails {
       `;
     }
 
-    let detailFruit = '';
+    let detailFruit = "";
 
     if (character.fruit) {
       detailFruit = fruitDetails(character.fruit);
     }
 
-    let detailCrew = '';
+    let detailCrew = "";
 
     if (character.crew) {
       detailCrew = equipageDetails(character.crew);
@@ -39,6 +39,7 @@ export default class CharacterDetails {
         </div>
       </section>
       <button id="addFavoriteBtn">Ajouter aux favoris</button>
+      <button id="addItemBtn">Ajouter un item</button>
       ${detailFruit}
       ${detailCrew}
     `;
@@ -51,6 +52,19 @@ export default class CharacterDetails {
         let request = Utils.parseRequestURL();
         await CharacterProvider.addCharacterToJson(request.id);
       });
+
+    document.getElementById("addItemBtn").addEventListener("click", () => {
+      localStorage.removeItem("selectedItem"); // Réinitialiser l'élément sélectionné
+      window.location.hash = "/items"; // Rediriger vers la page des items
+    });
+
+    const selectedItem = localStorage.getItem("selectedItem");
+    if (selectedItem) {
+      const imageElement = document.createElement("img");
+      imageElement.src = selectedItem;
+      imageElement.alt = "Selected Item";
+      document.body.appendChild(imageElement);
+    }
   }
 }
 
@@ -66,7 +80,7 @@ const fruitDetails = (fruit) => {
       <img src="${fruit.filename}" alt="${fruit.name}">
     </section>
   `;
-}
+};
 
 const equipageDetails = (crew) => {
   return /*html*/ `
@@ -75,10 +89,16 @@ const equipageDetails = (crew) => {
       <div>
         <p>Nom: ${crew.name} (${crew.roman_name})</p>
         <p>Nombre de membre: ${crew.number}</p>
-        <p>Prime totale: ${crew.total_prime}<img src="Symbole_Berry.webp" alt="Berry"></p>
-        ${crew.is_yonko ? '<p>Est un équipage de Yonko (Empereur des mers)</p>' : ''}
+        <p>Prime totale: ${
+          crew.total_prime
+        }<img src="Symbole_Berry.webp" alt="Berry"></p>
+        ${
+          crew.is_yonko
+            ? "<p>Est un équipage de Yonko (Empereur des mers)</p>"
+            : ""
+        }
         <p>Status: ${crew.status}</p>
       </div>
     </section>
   `;
-}
+};
