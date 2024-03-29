@@ -21,7 +21,7 @@ export default class Listing {
     let html = charactersToRender
       .map(
         (character) => /*html*/ `
-          <div class="col">
+          <div class="col box-card">
             <div class="card shadow-sm">
               <div class="card-body">
                 <h5 class="card-title">${character.name}</h5>
@@ -51,8 +51,6 @@ export default class Listing {
         </li>
       `;
     }).join("\n ");
-
-    LazyLoad.initLazyLoad("lazy");
 
     return /*html*/ `   
       <section class="py-5 text-center container">
@@ -102,5 +100,9 @@ export default class Listing {
         </nav>
       </div>
     `;
+  }
+
+  async afterRender() {
+    LazyLoad.initLazyLoad("box-card");
   }
 }

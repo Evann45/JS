@@ -4,6 +4,7 @@ import Details from "./views/pages/Details.js";
 import Recherche from "./views/pages/Recherche.js";
 import Error404 from "./views/pages/Error404.js";
 import Favoris from "./views/pages/Favoris.js";
+import ItemPage from "./views/pages/Items.js";
 
 import Utils from "./services/Utils.js";
 
@@ -15,6 +16,7 @@ const routes = {
   "/personnage/:id": Details,
   "/recherche/:id": Recherche,
   "/favoris": Favoris,
+  "/items": ItemPage,
 };
 
 // Function to handle routing
