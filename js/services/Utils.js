@@ -1,3 +1,5 @@
+import FavoriteManager from "./FavoriteManager.js";
+
 const Utils = { 
     // --------------------------------
     //  Parse a url and break it into resource, id and verb
@@ -23,6 +25,28 @@ const Utils = {
     // --------------------------------
     , sleep: (ms) => {
         return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
+    , afterRender: async () => {
+      const removeFavoriteButtons = document.querySelectorAll(
+        ".remove-favorite-btn"
+      );
+      removeFavoriteButtons.forEach((button) => {
+        button.addEventListener("click", async () => {
+          const characterId = button.dataset.id;
+          await FavoriteManager.removeCharacterFromFavorites(characterId);
+          window.location.reload();
+        });
+      });
+    
+      const addFavoriteButtons = document.querySelectorAll(".add-favorite-btn");
+      addFavoriteButtons.forEach((button) => {
+        button.addEventListener("click", async () => {
+          const characterId = button.dataset.id;
+          await FavoriteManager.addCharacterToJson(characterId);
+          window.location.reload();
+        });
+      });
     }
 }
 

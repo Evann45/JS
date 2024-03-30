@@ -1,53 +1,11 @@
-import { ENDPOINT } from "../config.js";
+import { Provider } from "../provider/Provider.js";
 
-export default class models {
-  static fetchCharacters = async (from = null, to = null) => {
-    const options = {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
-    try {
-      const response = await fetch(`${ENDPOINT}`, options);
-      const json = await response.json();
-      if (from && to) {
-        return json.slice(from, to);
-      }
-      if (from) {
-        return json.slice(from);
-      }
-      if (to) {
-        return json.slice(0, to);
-      }
-      return json;
-    } catch (err) {
-      console.log("Error getting characters", err);
-      return []; // Retourne un tableau vide en cas d'erreur
-    }
-  };
-
-  static getCharacter = async (id) => {
-    const options = {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
-    try {
-      const response = await fetch(`${ENDPOINT}/${id}`, options);
-      const json = await response.json();
-      return json;
-    } catch (err) {
-      console.log("Error getting character details", err);
-    }
-  };
-
-  // ajoute le personnage dans un fichier json a part avec un chemin spécifique
+export default class FavoriteManager {
+    // ajoute le personnage dans un fichier json a part avec un chemin spécifique
   static addCharacterToJson = async (id) => {
     try {
       // Récupérer les données du personnage depuis l'API
-      const character = await this.getCharacter(id);
+      const character = await Provider.getCharacter(id);
 
       // Charger les données actuelles du stockage local
       let jsonData = JSON.parse(localStorage.getItem("favoris") || "[]");
@@ -84,6 +42,7 @@ export default class models {
     try {
       // Charger les données actuelles du stockage local
       const jsonData = JSON.parse(localStorage.getItem("favoris") || "[]");
+      console.log("jsonData", jsonData);
       return jsonData;
     } catch (error) {
       console.error(
@@ -146,30 +105,5 @@ export default class models {
       );
       return false;
     }
-  };
-  static rechercheCharacter = async (name) => {
-    const options = {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
-    try {
-      const response = await fetch(`${ENDPOINT}`, options);
-      const json = await response.json();
-      console.log(json);
-      const characters = json.filter((character) =>
-        character.name
-          .toLowerCase()
-          .includes(name.replaceAll("%20", " ").toLowerCase())
-      );
-      console.log(characters);
-      if (characters.length > 27) {
-        return characters.slice(0, 27);
-      }
-      return characters;
-    } catch (err) {
-      console.log("Error getting character details", err);
-    }
-  };
+  }
 }
