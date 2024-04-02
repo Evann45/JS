@@ -1,19 +1,22 @@
 import Utils from "../../services/Utils.js";
-import ArticleProvider from "../../services/ArticleProvider.js";
+import HTMLGenerator from "../../services/HTMLGenerator.js";
+import { Provider } from "../../provider/Provider.js";
 
-export default class ArticleShow {
+export default class CharacterDetails {
   async render() {
     let request = Utils.parseRequestURL();
-    let post = await ArticleProvider.getArticle(request.id);
+    let character = await Provider.getCharacter(request.id);
 
-    return /*html*/ `
-            <section class="section">
-                <h1> Article index : ${post.index}</h1>
-                <p> Post Title : ${post.title} </p>
-                <p> Post Content : ${post.text} </p>
-            </section>
-            <p><a href="/">back to home</a></p>
-            <p><a href="#/articles">back to all articles</a></p>
-        `;
+    if (character == undefined) {
+      return /*html*/ `
+        <section class="section">
+          <h1>Personnage introuvable</h1>
+          <p>Le personnage que vous cherchez n'existe pas.</p>
+        </section>
+      `;
+    }
+
+    const favoris = await Provider.getFavorites();
+    return HTMLGenerator.generateCharacterDetails(character, favoris.find((char) => char.id === character.id) !== undefined);
   }
 }

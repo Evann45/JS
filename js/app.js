@@ -1,7 +1,9 @@
 import Home from "./views/pages/Home.js";
 import Listing from "./views/pages/Listing.js";
 import Details from "./views/pages/Details.js";
+import Recherche from "./views/pages/Recherche.js";
 import Error404 from "./views/pages/Error404.js";
+import Favoris from "./views/pages/Favoris.js";
 
 import Utils from "./services/Utils.js";
 
@@ -9,15 +11,18 @@ import Utils from "./services/Utils.js";
 const routes = {
   "/": Home,
   "/personnages": Listing,
-  "/personnages/:id": Details,
+  "/personnages/:id": Listing,
+  "/personnage/:id": Details,
+  "/recherche/:id": Recherche,
+  "/favoris": Favoris,
 };
 
-// The router code. Takes a URL, checks against the list of supported routes and then renders the corresponding content page.
-const router = async () => {
+// Function to handle routing
+const handleRouting = async () => {
   // Lazy load view element:
-  const content = null || document.querySelector("#content");
+  const content = document.querySelector("#content");
 
-  // Get the parsed URl from the addressbar
+  // Get the parsed URL from the addressbar
   let request = Utils.parseRequestURL();
 
   // Parse the URL and if it has an id part, change it with the string ":id"
@@ -25,14 +30,29 @@ const router = async () => {
     (request.resource ? "/" + request.resource : "/") +
     (request.id ? "/:id" : "") +
     (request.verb ? "/" + request.verb : "");
+
   // Get the page from our hash of supported routes.
   // If the parsed URL is not in our list of supported routes, select the 404 page instead
-  let page = routes[parsedURL] ? new routes[parsedURL]() : Error404;
+  let PageComponent = routes[parsedURL] ? routes[parsedURL] : Error404;
 
-  content.innerHTML = await page.render();
+  try {
+    const page = new PageComponent(); // Instantiate the page component
+    const renderedContent = await page.render(); // Render the page content
+    content.innerHTML = renderedContent; // Update the content with the rendered page content
+    Utils.afterRender();
+  } catch (error) {
+    console.error("Error rendering page: ", error);
+    // Render an error page if rendering fails
+    const errorPage = new Error404();
+    content.innerHTML = await errorPage.render();
+  }
 };
 
-// Listen on hash change:
+// Function to handle routing on hash change or page load
+const router = () => {
+  handleRouting();
+};
+
+// Listen for hash changes and page load events
 window.addEventListener("hashchange", router);
-// Listen on page load:
 window.addEventListener("load", router);
