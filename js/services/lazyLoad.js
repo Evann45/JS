@@ -1,6 +1,6 @@
 export default class LazyLoad {
   static initLazyLoad(className) {
-    const lazy = document.querySelectorAll("." + className);
+    const lazy = document.querySelectorAll(`.${className}`);
     const options = {
       root: null,
       rootMargin: "0px",

@@ -2,11 +2,10 @@
 import { Provider } from "../../provider/Provider.js";
 import HTMLGenerator from "../../services/HTMLGenerator.js";
 import Utils from "../../services/Utils.js";
-import LazyLoad from "../../services/lazyLoad.js";
 
 export default class Listing {
   async render() {
-        let request = Utils.parseRequestURL();
+    let request = Utils.parseRequestURL();
     let page = request.id ? request.id : 1;
     console.log(request);
     try {
@@ -17,7 +16,10 @@ export default class Listing {
     let lastPage = Math.ceil(characters.length / 27);
 
     characters = characters.slice(0 + (page - 1) * 27, 27 * page);
-    let html = HTMLGenerator.generateCards(characters, await Provider.getFavorites());
+    let html = HTMLGenerator.generateCards(
+      characters,
+      await Provider.getFavorites()
+    );
 
     let numPageContent = Array.from({ length: 4 }, (_, i) => {
       let num = i + 1 + (page - 1);
@@ -30,8 +32,6 @@ export default class Listing {
         </li>
       `;
     }).join("\n ");
-
-    LazyLoad.initLazyLoad("lazy");
 
     return /*html*/ `   
       <section class="py-5 text-center container">

@@ -7,35 +7,6 @@ import Favoris from "./views/pages/Favoris.js";
 
 import Utils from "./services/Utils.js";
 
-
-// import { ENDPOINT } from "./config.js";
-// const response = await fetch("https://api.jikan.moe/v4/anime/21/characters");
-// const json = await response.json();
-// let characters = [];
-
-// for (const element of json.data) {
-//     await new Promise((resolve) => setTimeout(resolve, 1100));
-//     const r = await fetch(`https://api.jikan.moe/v4/characters/${element.character.mal_id}`);
-//     const j = await r.json();
-
-//     characters.push(Personnage.fromJson(j.data));
-//     console.log(characters);
-//     console.log(j.data);
-// }
-
-// const options = {
-//     method: "POST",
-//     headers: {
-//         "Content-Type": "application/json",
-//     },
-//     body: JSON.stringify(characters),
-// };
-// const re = await fetch(ENDPOINT, options);
-// const jso = await re.json();
-// console.log(jso);
-// console.log("Done");
-
-
 // List of supported routes. Any url other than these routes will throw a 404 error
 const routes = {
   "/": Home,
