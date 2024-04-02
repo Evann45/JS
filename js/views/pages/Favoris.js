@@ -8,6 +8,11 @@ export default class Favoris {
     let characters = await Provider.getFavorites();
     let html = HTMLGenerator.generateCards(characters, characters);
 
+
+    if (characters.length == 0) {
+        html = `<h2>Vous n'avez pas de favoris</h2>`
+    }
+
     return /*html*/ `
             <section class="py-5 text-center container">
                 <div class="row py-lg-5">
