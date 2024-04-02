@@ -1,4 +1,5 @@
 import FavoriteManager from "./FavoriteManager.js";
+import LazyLoad from "./lazyLoad.js";
 
 const Utils = { 
     // --------------------------------
@@ -28,6 +29,7 @@ const Utils = {
     }
 
     , afterRender: async () => {
+      LazyLoad.initLazyLoad('box-card')
       const removeFavoriteButtons = document.querySelectorAll(
         ".remove-favorite-btn"
       );

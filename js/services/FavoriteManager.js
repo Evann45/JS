@@ -25,7 +25,6 @@ export default class FavoriteManager {
       // Mettre à jour le stockage local avec les nouvelles données
       localStorage.setItem("favoris", JSON.stringify(jsonData));
 
-      alert("Personnage ajouté avec succès dans les favoris.");
       return true;
     } catch (error) {
       alert(

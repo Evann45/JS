@@ -1,7 +1,7 @@
 export default class HTMLGenerator {
     static generateCard = (character, isFavorite) => {
         return /*html*/ `
-            <div class="col">
+            <div class="col box-card">
                 <div class="card mb-3">
                     <div class="row g-0">
                         <div class="col-md-4">
